@@ -1,0 +1,18 @@
+## Interface: 11200
+
+## Title: Cartographer_Survival
+## Notes: Survival mapnotes for Cartographer
+## Author: Ulukay
+## Version: 1.0
+## X-Category: Map
+## X-Cartographer-Prof: Survival
+
+## DefaultState: Enabled
+## LoadOnDemand: 1
+
+## OptionalDeps: Ace2, Babble-Spell-2.2
+## RequiredDeps: Cartographer
+## SavedVariables: Cartographer_SurvivalDB
+
+libs\Deformat-2.0\Deformat-2.0.lua
+addon.lua
