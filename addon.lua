@@ -2,7 +2,6 @@ local bs = AceLibrary("Babble-Spell-2.2")
 local AceAddon = AceLibrary("AceAddon-2.0")
 local Tablet = AceLibrary("Tablet-2.0")
 local Deformat = AceLibrary("Deformat-2.0")
-local L = {}
 
 local L = AceLibrary("AceLocale-2.2"):new("Cartographer_Survival")
 L:RegisterTranslations("enUS", function() return {
@@ -18,12 +17,15 @@ L:RegisterTranslations("enUS", function() return {
 		
     -- Woods,
     -- ["Simple Wood Tree (Teldrassil)"] = true,
-    ["Simple Wood Tree"] = true,
-    ["Bright Wood Tree"] = true,
+    ["Simple Wood"] = true,
+    ["Bright Wood"] = true,
+    ["Dead Wood"] = true,
+    ["Shade Wood"] = true,
+    ["Tropical Wood"] = true,
 } end)
 
 L:RegisterTranslations("ruRU", function() return {
-    ["Requires Survival"] = "Ben\195\182tigt Kr\195\164uterkunde",
+    ["Requires Survival"] = "Требуется Выживание",
     
     ["Filter"] = "Фильтр",
     ["Filter out trees"] = "Отфильтровать деревья",
@@ -36,8 +38,11 @@ L:RegisterTranslations("ruRU", function() return {
 	
     -- Woods
     -- ["Simple Wood Tree (Teldrassil)"] = "Простое дерево",
-    ["Simple Wood Tree"] = "Простое дерево",
-    ["Bright Wood Tree"] = "Светлое дерево",
+    ["Simple Wood"] = "Простое дерево",
+    ["Bright Wood"] = "Светлое дерево",
+    ["Dead Wood"] = "Мертвое дерево",
+    ["Shade Wood"] = "Тенистое дерево",
+    ["Tropical Wood"] = "Тропическое дерево",
 } end)
 
 local mod = Cartographer:NewModule("Survival", "AceConsole-2.0", "AceEvent-2.0")
@@ -49,15 +54,33 @@ mod.icon = {
         -- width = 12,
         -- height = 12
     -- },
-    ["Simple Wood Tree"] = {
-        text = L["Simple Wood Tree"],
+    ["Simple Wood"] = {
+        text = L["Simple Wood"],
         path = "Interface\\Icons\\simple_wood_1",
         width = 12,
         height = 12
     },
-    ["Bright Wood Tree"] = {
-        text = L["Bright Wood Tree"],
+    ["Bright Wood"] = {
+        text = L["Bright Wood"],
+        path = "Interface\\Icons\\oak_wood_1",
+        width = 12,
+        height = 12
+    },
+    ["Dead Wood"] = {
+        text = L["Dead Wood"],
         path = "Interface\\Icons\\simple_wood_1",
+        width = 12,
+        height = 12
+    },
+    ["Shade Wood"] = {
+        text = L["Shade Wood"],
+        path = "Interface\\Icons\\simple_wood_1",
+        width = 12,
+        height = 12
+    },
+    ["Tropical Wood"] = {
+        text = L["Tropical Wood"],
+        path = "Interface\\Icons\\tropical_logs_1",
         width = 12,
         height = 12
     },
@@ -155,12 +178,11 @@ end
 function mod:OnEnable()
     if Cartographer_Notes then
         if not self.iconsregistered then
-            for k,v in pairs(self.icon) do
+            for k, v in pairs(self.icon) do
                 Cartographer_Notes:RegisterIcon(k, v)
             end
             self.iconsregistered = true
         end
-
         Cartographer_Notes:RegisterNotesDatabase('Survival', Cartographer_SurvivalDB, self)
     else
         Cartographer:ToggleModuleActive(self, false)
@@ -183,31 +205,21 @@ function mod:OnDisable()
     end
 end
 
--- function mod:SetNote(what)
-    -- local x, y = GetPlayerMapPosition("player")
-    -- if x == 0 and y == 0 then return end
-    -- local zone = GetRealZoneText()
-    -- local _,_,w = string.find(what, "^(.-) %(%d+%)$")
-    -- if w then
-		-- what = w
-	-- end
-    -- Cartographer_Notes:SetNote(zone, x, y, L:GetReverseTranslation(what), "Survival")
--- end
 function mod:SetNote(what)
     local x, y = GetPlayerMapPosition("player")
     if x == 0 and y == 0 then return end
     local zone = GetRealZoneText()
 
-    -- Извлекаем название дерева без зоны
-    local startPos, endPos = string.find(what, "%(")
+    -- Извлекаем начальное название дерева
     local treeName = what
-    if startPos then
-        treeName = string.sub(what, 1, startPos - 2)
-    end
+    -- Удаляем всё после " Tree"
+    treeName = string.gsub(treeName, "%sTree", "")
+    -- Удаляем всё в скобках
+    treeName = string.gsub(treeName, "%s%(.-%)", "")
 
+    -- DEFAULT_CHAT_FRAME:AddMessage(treeName)
     Cartographer_Notes:SetNote(zone, x, y, treeName, "Survival")
 end
-
 
 function mod:OnNoteTooltipRequest(zone, id)
 	local icon = Cartographer_SurvivalDB[zone][id]
