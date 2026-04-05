@@ -82,7 +82,7 @@ mod.icon = {
         height = 12
     },
     ["Star Wood"] = {
-        text = L["Tropical Wood"],
+        text = L["Star Wood"],
         path = "Interface\\Icons\\star_log_2",
         width = 12,
         height = 12
