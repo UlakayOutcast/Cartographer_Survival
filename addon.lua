@@ -14,14 +14,16 @@ L:RegisterTranslations("enUS", function() return {
     ["Select none"] = true,
 
 	["Survival"] = true,
+	["Cut Wood"] = true,
 		
     -- Woods,
     -- ["Simple Wood Tree (Teldrassil)"] = true,
     ["Simple Wood"] = true,
     ["Bright Wood"] = true,
-    ["Dead Wood"] = true,
     ["Shade Wood"] = true,
     ["Tropical Wood"] = true,
+    ["Star Wood"] = true,
+    ["Dead Wood"] = true,
 } end)
 
 L:RegisterTranslations("ruRU", function() return {
@@ -33,16 +35,17 @@ L:RegisterTranslations("ruRU", function() return {
     ["Select all"] = "Выбрать все",
     ["Select none"] = "Выбрать нет",
 
-	["Survival"] = true,
-	["Cut Wood"] = true,
+	["Survival"] = "Выживание",
+	["Cut Wood"] = "Рубить дерево",
 	
     -- Woods
     -- ["Simple Wood Tree (Teldrassil)"] = "Простое дерево",
     ["Simple Wood"] = "Простое дерево",
     ["Bright Wood"] = "Светлое дерево",
-    ["Dead Wood"] = "Мертвое дерево",
     ["Shade Wood"] = "Тенистое дерево",
     ["Tropical Wood"] = "Тропическое дерево",
+    ["Star Wood"] = "Звёздное дерево",
+    ["Dead Wood"] = "Мертвое дерево",
 } end)
 
 local mod = Cartographer:NewModule("Survival", "AceConsole-2.0", "AceEvent-2.0")
@@ -66,12 +69,6 @@ mod.icon = {
         width = 12,
         height = 12
     },
-    ["Dead Wood"] = {
-        text = L["Dead Wood"],
-        path = "Interface\\Icons\\simple_wood_1",
-        width = 12,
-        height = 12
-    },
     ["Shade Wood"] = {
         text = L["Shade Wood"],
         path = "Interface\\Icons\\simple_wood_1",
@@ -81,6 +78,18 @@ mod.icon = {
     ["Tropical Wood"] = {
         text = L["Tropical Wood"],
         path = "Interface\\Icons\\tropical_logs_1",
+        width = 12,
+        height = 12
+    },
+    ["Star Wood"] = {
+        text = L["Tropical Wood"],
+        path = "Interface\\Icons\\star_log_2",
+        width = 12,
+        height = 12
+    },
+    ["Dead Wood"] = {
+        text = L["Dead Wood"],
+        path = "Interface\\Icons\\simple_wood_1",
         width = 12,
         height = 12
     },
